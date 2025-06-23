@@ -83,36 +83,36 @@ function getGlobal() {
 const g = getGlobal();
 
 
-async function getCustomXmlPart() {
-  return new Promise<string | undefined>((resolve, reject) => {
-    Office.context.document.customXmlParts.getByNamespaceAsync(
-      "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
-      {},
-      (result) => {
-        if (result.status === Office.AsyncResultStatus.Failed) {
-          reject(result.error);
-          return;
-        }
+// async function getCustomXmlPart() {
+//   return new Promise<string | undefined>((resolve, reject) => {
+//     Office.context.document.customXmlParts.getByNamespaceAsync(
+//       "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+//       {},
+//       (result) => {
+//         if (result.status === Office.AsyncResultStatus.Failed) {
+//           reject(result.error);
+//           return;
+//         }
 
-        const customXmlPart = result.value[0];
+//         const customXmlPart = result.value[0];
 
-        if (!customXmlPart) {
-          resolve(undefined);
-          return;
-        }
+//         if (!customXmlPart) {
+//           resolve(undefined);
+//           return;
+//         }
 
-        customXmlPart.getXmlAsync({}, (xmlResult) => {
-          if (xmlResult.status === Office.AsyncResultStatus.Failed) {
-            reject(xmlResult.error);
-            return;
-          }
+//         customXmlPart.getXmlAsync({}, (xmlResult) => {
+//           if (xmlResult.status === Office.AsyncResultStatus.Failed) {
+//             reject(xmlResult.error);
+//             return;
+//           }
 
-          resolve(xmlResult.value);
-        });
-      }
-    );
-  });
-}
+//           resolve(xmlResult.value);
+//         });
+//       }
+//     );
+//   });
+// }
 
 // The add-in command functions need to be available in global scope
 
