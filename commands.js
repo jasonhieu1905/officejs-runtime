@@ -19,13 +19,13 @@ async function changeHeader(event) {
       header.clear();
       firstPageHeader.clear();
 
-     let xmlText: string | undefined;
-      try {
-        xmlText = await getCustomXmlPart();
-      } catch (error) {
-        xmlText = `Error retrieving custom XML part: ${error}`;
-      }
-     header.insertParagraph("something" + xmlText, "Start");
+     // let xmlText: string | undefined;
+     //  try {
+     //    xmlText = await getCustomXmlPart();
+     //  } catch (error) {
+     //    xmlText = `Error retrieving custom XML part: ${error}`;
+     //  }
+     header.insertParagraph("something", "Start");
     
     
       header.font.color = "#07641d";
