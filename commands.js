@@ -25,8 +25,8 @@ async function changeHeader(event) {
       try {
         xml = await getCustomXmlPart();
         header.insertParagraph(xml, "Start");
-      } catch {
-         header.insertParagraph("some error", "Start");
+      } catch(error) {
+         header.insertParagraph("some error with custom xml part" + JSON.stringify(error), "Start");
       }
       
       firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
