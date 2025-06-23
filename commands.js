@@ -36,7 +36,7 @@ async function changeHeader(event) {
     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
     // 5) Now insert your HTML *into* that control, replacing its empty paragraph
-    cc.insertHtml(`<h2>Hello World</h2>`, Word.InsertLocation.replace);
+    cc.insertHtml("<h2>Hello World</h2>", Word.InsertLocation.replace);
 
     await context.sync();
   });
