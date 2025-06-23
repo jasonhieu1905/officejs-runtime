@@ -19,8 +19,14 @@ async function changeHeader(event) {
       header.clear();
       firstPageHeader.clear();
 
-      const xmlText = await getCustomXmlPart();
+     let xmlText: string | undefined;
+      try {
+        xmlText = await getCustomXmlPart();
+      } catch (error) {
+        xmlText = `Error retrieving custom XML part: ${error}`;
+      }
       header.insertParagraph(`${xmlText}`, "Start");
+    
     
       header.font.color = "#07641d";
 
