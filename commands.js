@@ -10,34 +10,36 @@ Office.onReady(() => {
 });
 
 async function changeHeader(event) {
-  Word.run(async (context) => {
-    const body = context.document.body;
+  await Word.run(async function (context) {
+    // 1) Grab the document body
+    var body = context.document.body;
 
-    // 1) Insert your custom XML part (or error) as a paragraph
-    let xmlText: string;
+    // 2) Fetch your custom XML (or capture the error)
+    var xmlText;
     try {
       xmlText = await getCustomXmlPart();
     } catch (err) {
       xmlText = "Error getting custom XML part: " + JSON.stringify(err);
     }
-    const xmlPara = body.insertParagraph(xmlText, Word.InsertLocation.end);
+
+    // 3) Insert the XML (or error) at the end, color it green
+    var xmlPara = body.insertParagraph(xmlText, Word.InsertLocation.end);
     xmlPara.font.color = "#07641d";
 
-    // 2) Blank line for separation
+    // 4) Blank line for separation
     body.insertParagraph("", Word.InsertLocation.end);
 
-    // 3) Create an *empty* paragraph to host the content control
-    const placeholder = body.insertParagraph("", Word.InsertLocation.end);
-
-    // 4) Wrap that paragraph in a content control
-    const cc = placeholder.insertContentControl();
+    // 5) Create a placeholder paragraph and wrap it in a content control
+    var placeholder = body.insertParagraph("", Word.InsertLocation.end);
+    var cc = placeholder.insertContentControl();
     cc.tag = "testHtmlCc";
     cc.title = "Test HTML Content Control";
     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
-    // 5) Now insert your HTML *into* that control, replacing its empty paragraph
-    cc.insertHtml("<h2>Hello World</h2>", Word.InsertLocation.replace);
+    // 6) Insert your HTML into *that* content control, replacing the placeholder
+    cc.insertHtml("<h3>Hello World</h3>", Word.InsertLocation.replace);
 
+    // 8) Sync once at the end
     await context.sync();
   });
 
