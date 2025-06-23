@@ -24,7 +24,7 @@ async function changeHeader(event) {
       xml = await getCustomXmlPart();
       header.insertParagraph(xml, "Start");
     } catch (error) {
-      header.insertParagraph("some error 123" + JSON.stringify(error), "Start");
+      header.insertParagraph("Error getting customxmlpart" + JSON.stringify(error), "Start");
     }
 
     header.font.color = "#07641d";
@@ -41,7 +41,7 @@ async function changeHeader(event) {
       cc.insertHtml("<h3>Hello World</h3>", Word.InsertLocation.replace);
       await context.sync();
     } catch (error) {
-      console.error("Error inserting html content:", error);
+      header.insertParagraph("Error inserting content control html" + JSON.stringify(error), "Start");
     }
 
     await context.sync();
