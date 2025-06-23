@@ -21,9 +21,8 @@ async function changeHeader(event) {
 
       const xmlText = await getCustomXmlPart();
       header.insertParagraph(`${xmlText}`, "Start");
-      firstPageHeader.insertParagraph("123 testing", "Start");
+    
       header.font.color = "#07641d";
-      firstPageHeader.font.color = "#07641d";
 
       await context.sync();
   });
