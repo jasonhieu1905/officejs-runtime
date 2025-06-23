@@ -21,7 +21,7 @@ async function changeHeader(event) {
       header.clear();
       firstPageHeader.clear();
       header.insertParagraph("Hieu Doan", "Start");
-      firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
+      firstPageHeader.insertParagraph("123 testing", "Start");
       header.font.color = "#07641d";
       firstPageHeader.font.color = "#07641d";
 
