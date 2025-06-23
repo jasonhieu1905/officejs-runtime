@@ -20,7 +20,15 @@ async function changeHeader(event) {
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      header.insertParagraph("Jason Hieu 123", "Start");
+
+      let xml = '';
+      try {
+        xml = await getCustomXmlPart();
+        header.insertParagraph(xml, "Start");
+      } catch {
+         header.insertParagraph("some error", "Start");
+      }
+      
       firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
       header.font.color = "red";
       firstPageHeader.font.color = "#07641d";
@@ -32,6 +40,39 @@ async function changeHeader(event) {
   // Calling event.completed is required. event.completed lets the platform know that processing has completed.
   event.completed();
 }
+
+
+async function getCustomXmlPart() {
+  return new Promise<string | undefined>((resolve, reject) => {
+    Office.context.document.customXmlParts.getByNamespaceAsync(
+      "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+      {},
+      (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          reject(result.error);
+          return;
+        }
+
+        const customXmlPart = result.value[0];
+
+        if (!customXmlPart) {
+          resolve(undefined);
+          return;
+        }
+
+        customXmlPart.getXmlAsync({}, (xmlResult) => {
+          if (xmlResult.status === Office.AsyncResultStatus.Failed) {
+            reject(xmlResult.error);
+            return;
+          }
+
+          resolve(xmlResult.value);
+        });
+      }
+    );
+  });
+}
+
 
 async function paragraphChanged() {
   await Word.run(async (context) => {
