@@ -20,7 +20,7 @@ async function changeHeader(event) {
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      header.insertParagraph("Jason Hieu", "Start");
+      header.insertParagraph("Jason Hieu 123", "Start");
       firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
       header.font.color = "red";
       firstPageHeader.font.color = "#07641d";
