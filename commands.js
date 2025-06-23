@@ -16,10 +16,14 @@ async function changeHeader(event) {
     await context.sync();
     if (body.text.length == 0)
     {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
+     const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
+      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
-      header.insertParagraph("Hieu Doan 123", "Start");
+      firstPageHeader.clear();
+      header.insertParagraph("Jason Hieu", "Start");
+      firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
       header.font.color = "red";
+      firstPageHeader.font.color = "#07641d";
 
       await context.sync();
     }
