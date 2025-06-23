@@ -17,26 +17,10 @@ async function changeHeader(event) {
     if (body.text.length == 0)
     {
       const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
-      firstPageHeader.clear();
-      header.insertParagraph("Hieu Doan", "Start");
-      firstPageHeader.insertParagraph("123 testing", "Start");
+      header.insertParagraph("Hieu Doan 123", "Start");
       header.font.color = "#07641d";
-      firstPageHeader.font.color = "#07641d";
 
-      await context.sync();
-    }
-    else
-    {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
-      header.clear();
-      firstPageHeader.clear();
-      header.insertParagraph("High Confidential - The data must be secret or in some way highly critical", "Start");
-      firstPageHeader.insertParagraph("High Confidential - The data must be secret or in some way highly critical", "Start");
-      header.font.color = "#f8334d";
-      firstPageHeader.font.color = "#f8334d";
       await context.sync();
     }
   });
