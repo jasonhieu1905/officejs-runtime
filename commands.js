@@ -20,7 +20,9 @@ async function changeHeader(event) {
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      header.insertParagraph("Public - The data is for the public and shareable externally", "Start");
+
+      const xmlString = await getCustomXmlPart();
+      header.insertParagraph(`${xmlString}`, "Start");
       firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
       header.font.color = "#07641d";
       firstPageHeader.font.color = "#07641d";
@@ -91,6 +93,39 @@ function getGlobal() {
 const g = getGlobal();
 
 // The add-in command functions need to be available in global scope
+
+async function getCustomXmlPart() {
+  return new Promise<string>((resolve, reject) => {
+    Office.context.document.customXmlParts.getByNamespaceAsync(
+      "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+      {},
+      (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          console.log("Error retrieving custom XML part: " + result.error.message);
+          reject(result.error);
+          return;
+        }
+
+        const customXmlPart = result.value[0];
+
+        if (!customXmlPart) {
+          console.log("No custom XML part found with the specified namespace.");
+          resolve("");
+          return;
+        }
+
+        customXmlPart.getXmlAsync({}, (xmlResult) => {
+          if (xmlResult.status === Office.AsyncResultStatus.Failed) {
+            reject(xmlResult.error);
+            return;
+          }
+
+          resolve(xmlResult.value);
+        });
+      }
+    );
+  });
+}
 
 Office.actions.associate("changeHeader", changeHeader);
 Office.actions.associate("registerOnParagraphChanged", registerOnParagraphChanged);
