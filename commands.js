@@ -25,7 +25,7 @@ async function changeHeader(event) {
       } catch (error) {
         xmlText = `Error retrieving custom XML part: ${error}`;
       }
-      header.insertParagraph(`${xmlText}`, "Start");
+     header.insertParagraph("something" + xmlText, "Start");
     
     
       header.font.color = "#07641d";
