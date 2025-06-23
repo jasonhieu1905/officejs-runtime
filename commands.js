@@ -14,18 +14,31 @@ async function changeHeader(event) {
     const body = context.document.body;
     body.load("text");
     await context.sync();
-   
+    if (body.text.length == 0)
+    {
       const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      header.insertParagraph("Hieu Doan Testing 1", "Start");
-      firstPageHeader.insertParagraph("Hieu Doan Testing 2", "Start");
+      header.insertParagraph("Public -1 The data is for the public and shareable externally", "Start");
+      firstPageHeader.insertParagraph("Public -2 The data is for the public and shareable externally", "Start");
       header.font.color = "#07641d";
       firstPageHeader.font.color = "#07641d";
 
       await context.sync();
-    
+    }
+    else
+    {
+      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
+      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
+      header.clear();
+      firstPageHeader.clear();
+      header.insertParagraph("High Confidential -1 The data must be secret or in some way highly critical", "Start");
+      firstPageHeader.insertParagraph("High Confidential -2 The data must be secret or in some way highly critical", "Start");
+      header.font.color = "#f8334d";
+      firstPageHeader.font.color = "#f8334d";
+      await context.sync();
+    }
   });
 
   // Calling event.completed is required. event.completed lets the platform know that processing has completed.
@@ -40,7 +53,7 @@ async function paragraphChanged() {
     if (results.items.length == 0) {
       const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
       header.clear();
-      header.insertParagraph("Public - 1", "Start");
+      header.insertParagraph("Public -1 The data is for the public and shareable externally", "Start");
       const font = header.font;
       font.color = "#07641d";
 
@@ -49,7 +62,7 @@ async function paragraphChanged() {
     else {
       const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
       header.clear();
-      header.insertParagraph("High Confidential - 2", "Start");
+      header.insertParagraph("High Confidential -1 The data must be secret or in some way highly critical", "Start");
       const font = header.font;
       font.color = "#f8334d";
       await context.sync();
