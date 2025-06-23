@@ -21,8 +21,8 @@ async function changeHeader(event) {
       header.clear();
       firstPageHeader.clear();
 
-      const xmlString = await getCustomXmlPart();
-      header.insertParagraph(`${xmlString}`, "Start");
+      
+      header.insertParagraph("Public - The data", "Start");
       firstPageHeader.insertParagraph("Public - The data is for the public and shareable externally", "Start");
       header.font.color = "#07641d";
       firstPageHeader.font.color = "#07641d";
