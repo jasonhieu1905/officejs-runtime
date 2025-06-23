@@ -24,7 +24,7 @@ async function changeHeader(event) {
       xml = await getCustomXmlPart();
       header.insertParagraph(xml, "Start");
     } catch (error) {
-      header.insertParagraph("some error" + JSON.stringify(error), "Start");
+      header.insertParagraph("some error 123" + JSON.stringify(error), "Start");
     }
 
     header.font.color = "#07641d";
