@@ -12,38 +12,35 @@ Office.onReady(() => {
 async function changeHeader(event) {
   Word.run(async (context) => {
     const body = context.document.body;
-    body.load("text");
-    await context.sync();
-    const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-    const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
-    header.clear();
-    firstPageHeader.clear();
 
-    let xml = "";
+    // 1) Fetch XML (or capture the error)
+    let xmlString: string;
+    let xmlError: Error | null = null;
     try {
-      xml = await getCustomXmlPart();
-      header.insertParagraph(xml, "Start");
-    } catch (error) {
-      header.insertParagraph("Error getting customxmlpart" + JSON.stringify(error), "Start");
+      xmlString = await getCustomXmlPart();
+    } catch (err) {
+      xmlString = "Error getting custom XML part:";
+      xmlError = err as Error;
     }
 
-    header.font.color = "#07641d";
+    // 2) Insert the XML (or error) at the end
+    const xmlPara = body.insertParagraph(
+      xmlError ? `${xmlString} ${JSON.stringify(xmlError)}` : xmlString,
+      Word.InsertLocation.end
+    );
+    xmlPara.font.color = xmlError ? "#a00" : "#07641d";
 
-    
-    try {
-      const headerRange = header.getRange();
+    // 3) Force a blank line
+    body.insertParagraph("", Word.InsertLocation.end);
 
-      const cc = headerRange.insertContentControl();
-      cc.tag = "helloWorldHeaderCC";
-      cc.title = "Hello World Header Control";
-      cc.appearance = "BoundingBox";
+    // 4) Insert content control + HTML
+    const cc = body.insertContentControl();
+    cc.tag = "helloWorldBodyCC";
+    cc.title = "Hello World Body Control";
+    cc.appearance = Word.ContentControlAppearance.boundingBox;
+    cc.insertHtml("<h3>Hello World</h3>", Word.InsertLocation.end);
 
-      cc.insertHtml("<h3>Hello World</h3>", Word.InsertLocation.replace);
-      await context.sync();
-    } catch (error) {
-      header.insertParagraph("Error inserting content control html" + JSON.stringify(error), "Start");
-    }
-
+    // 5) One final sync
     await context.sync();
   });
 
