@@ -20,7 +20,7 @@ async function changeHeader(event) {
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      header.insertParagraph("Hieu Doan 123", "Start");
+      header.insertParagraph("Hieu Doan 1234", "Start");
       firstPageHeader.insertParagraph("123 testing", "Start");
       header.font.color = "#07641d";
       firstPageHeader.font.color = "#07641d";
