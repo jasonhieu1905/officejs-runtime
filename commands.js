@@ -14,68 +14,48 @@ async function changeHeader(event) {
     const body = context.document.body;
     body.load("text");
     await context.sync();
-    if (body.text.length == 0)
-    {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
-      header.clear();
-      firstPageHeader.clear();
-      header.insertParagraph("Hieu Doan", "Start");
-      firstPageHeader.insertParagraph("Public -2 The data is for the public and shareable externally", "Start");
-      header.font.color = "#07641d";
-      firstPageHeader.font.color = "#07641d";
 
-      await context.sync();
-    }
-    else
-    {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
-      header.clear();
-      firstPageHeader.clear();
-      header.insertParagraph("High Confidential -1 The data must be secret or in some way highly critical", "Start");
-      firstPageHeader.insertParagraph("High Confidential -2 The data must be secret or in some way highly critical", "Start");
-      header.font.color = "#f8334d";
-      firstPageHeader.font.color = "#f8334d";
-      await context.sync();
-    }
+    const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
+    const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
+    header.clear();
+    firstPageHeader.clear();
+    const xmlString = await getCustomXmlPart();
+    header.insertParagraph(`${xmlString}`, "Start");
+    header.font.color = "#07641d";
+
+    await context.sync();
   });
 
   // Calling event.completed is required. event.completed lets the platform know that processing has completed.
   event.completed();
 }
 
-async function paragraphChanged() {
-  await Word.run(async (context) => {
-    const results = context.document.body.search("110");
-    results.load("length");
-    await context.sync();
-    if (results.items.length == 0) {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      header.clear();
-      header.insertParagraph("Public -1 The data is for the public and shareable externally", "Start");
-      const font = header.font;
-      font.color = "#07641d";
+function getCustomXmlPart() {
+  return Office.context.document.customXmlParts.getByNamespaceAsync(
+    "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+    {},
+    (result) => {
+      if (result.status === Office.AsyncResultStatus.Failed) {
+        console.log("Error retrieving custom XML part: " + result.error.message);
+        return;
+      }
 
-      await context.sync();
+      const customXmlPart = result.value[0];
+
+      if (!customXmlPart) {
+        console.log("No custom XML part found with the specified namespace.");
+        return;
+      }
+
+      return customXmlPart.getXmlAsync({}, (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          return;
+        }
+
+        return result.value;
+      });
     }
-    else {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      header.clear();
-      header.insertParagraph("High Confidential -1 The data must be secret or in some way highly critical", "Start");
-      const font = header.font;
-      font.color = "#f8334d";
-      await context.sync();
-    }
-  });
-}
-async function registerOnParagraphChanged(event) {
-  Word.run(async (context) => {
-    let eventContext = context.document.onParagraphChanged.add(paragraphChanged);
-    await context.sync();
-  });
-  // Calling event.completed is required. event.completed lets the platform know that processing has completed.
-  event.completed();
+  );
 }
 
 function getGlobal() {
@@ -93,4 +73,3 @@ const g = getGlobal();
 // The add-in command functions need to be available in global scope
 
 Office.actions.associate("changeHeader", changeHeader);
-Office.actions.associate("registerOnParagraphChanged", registerOnParagraphChanged);
