@@ -14,31 +14,18 @@ async function changeHeader(event) {
     const body = context.document.body;
     body.load("text");
     await context.sync();
-    if (body.text.length == 0)
-    {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
+    const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      header.insertParagraph("Hieu Doan 123", "Start");
+
+      const xmlText = await getCustomXmlPart();
+      header.insertParagraph(`${xmlText}`, "Start");
       firstPageHeader.insertParagraph("123 testing", "Start");
       header.font.color = "#07641d";
       firstPageHeader.font.color = "#07641d";
 
       await context.sync();
-    }
-    else
-    {
-      const header = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);
-      const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
-      header.clear();
-      firstPageHeader.clear();
-      header.insertParagraph("High Confidential - The data must be secret or in some way highly critical", "Start");
-      firstPageHeader.insertParagraph("High Confidential - The data must be secret or in some way highly critical", "Start");
-      header.font.color = "#f8334d";
-      firstPageHeader.font.color = "#f8334d";
-      await context.sync();
-    }
   });
 
   // Calling event.completed is required. event.completed lets the platform know that processing has completed.
@@ -89,6 +76,38 @@ function getGlobal() {
 }
 
 const g = getGlobal();
+
+
+async function getCustomXmlPart() {
+  return new Promise<string | undefined>((resolve, reject) => {
+    Office.context.document.customXmlParts.getByNamespaceAsync(
+      "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+      {},
+      (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          reject(result.error);
+          return;
+        }
+
+        const customXmlPart = result.value[0];
+
+        if (!customXmlPart) {
+          resolve(undefined);
+          return;
+        }
+
+        customXmlPart.getXmlAsync({}, (xmlResult) => {
+          if (xmlResult.status === Office.AsyncResultStatus.Failed) {
+            reject(xmlResult.error);
+            return;
+          }
+
+          resolve(xmlResult.value);
+        });
+      }
+    );
+  });
+}
 
 // The add-in command functions need to be available in global scope
 
