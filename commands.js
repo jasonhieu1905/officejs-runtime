@@ -19,8 +19,8 @@ async function changeHeader(event) {
       const firstPageHeader = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.firstPage);
       header.clear();
       firstPageHeader.clear();
-      const xmlString = await getCustomXmlPart();
-      header.insertParagraph(`${xmlString}`, "Start");
+      // const xmlString = await getCustomXmlPart();
+      header.insertParagraph(`something`, "Start");
       header.font.color = "#07641d";
 
       await context.sync();
