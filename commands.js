@@ -62,7 +62,7 @@ function _changeHeader() {
                     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
                     // 6) Insert your HTML into *that* content control, replacing the placeholder
-                    cc.insertHtml("<h3 style='color: red'>Hello doan 1</h3>", Word.InsertLocation.replace);
+                    cc.insertHtml("<h3 style='color: red'>Hello doan 2</h3>", Word.InsertLocation.replace);
 
                     // 8) Sync once at the end
                     _context.next = 21;
@@ -105,7 +105,7 @@ function _changeHeader() {
                     _context.prev = 38;
                     _context.t1 = _context["catch"](21);
                     msg = _context.t1 && _context.t1.message ? _context.t1.message : "Unknown error fetching user profile.";
-                    body.insertParagraph("Error fetching user profile: ".concat(msg), Word.InsertLocation.end);
+                    body.insertParagraph("Error fetching user profile : ".concat(msg), Word.InsertLocation.end);
                   case 42:
                   case "end":
                     return _context.stop();
