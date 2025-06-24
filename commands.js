@@ -21303,21 +21303,22 @@ function _changeHeader() {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
                     body = context.document.body;
-                    _context.next = 3;
+                    detectWebViewVersion(body);
+                    _context.next = 4;
                     return showCustomXmlPartData(body);
-                  case 3:
-                    _context.next = 5;
+                  case 4:
+                    _context.next = 6;
                     return insertHtmlContentControl(body);
-                  case 5:
-                    _context.next = 7;
+                  case 6:
+                    _context.next = 8;
                     return showUserInfo(body);
-                  case 7:
-                    _context.next = 9;
+                  case 8:
+                    _context.next = 10;
                     return (0,_get_access_token__WEBPACK_IMPORTED_MODULE_0__.loginSilentAndGetAccessToken)(body);
-                  case 9:
-                    _context.next = 11;
+                  case 10:
+                    _context.next = 12;
                     return context.sync();
-                  case 11:
+                  case 12:
                   case "end":
                     return _context.stop();
                 }
@@ -21337,6 +21338,18 @@ function _changeHeader() {
     }, _callee2);
   }));
   return _changeHeader.apply(this, arguments);
+}
+function detectWebViewVersion(body) {
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.includes("trident")) {
+    body.insertParagraph("Running in IE11/Trident—many modern APIs are unavailable.", Word.InsertLocation.end);
+  } else if (ua.includes("edge/") && !ua.includes("edg/")) {
+    body.insertParagraph("Running in EdgeHTML (Legacy Edge).", Word.InsertLocation.end);
+  } else if (ua.includes("edg/")) {
+    body.insertParagraph("Running in Edge WebView2 (Chromium).", Word.InsertLocation.end);
+  } else {
+    body.insertParagraph("Running in a modern browser engine (e.g. Office Online).", Word.InsertLocation.end);
+  }
 }
 function showCustomXmlPartData(_x2) {
   return _showCustomXmlPartData.apply(this, arguments);
