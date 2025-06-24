@@ -29,7 +29,7 @@ function _changeHeader() {
           _context2.next = 2;
           return Word.run(/*#__PURE__*/function () {
             var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(context) {
-              var body, xmlText, xmlPara, placeholder, cc;
+              var body, xmlText, xmlPara, placeholder, cc, response, profile, photoResponse, blob, reader;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -62,51 +62,70 @@ function _changeHeader() {
                     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
                     // 6) Insert your HTML into *that* content control, replacing the placeholder
-                    cc.insertHtml("<h3 style='color: red'>Hello Hieu Cong Doan</h3>", Word.InsertLocation.replace);
+                    cc.insertHtml("<h3 style='color: red'>Hello 123 Hieu doan 123</h3>", Word.InsertLocation.replace);
 
                     // 8) Sync once at the end
-                    // await context.sync();
-                    // // Fetch user profile from Microsoft Graph using the access token
-                    // const response = await fetch("https://graph.microsoft.com/v1.0/me", {
-                    //   headers: {
-                    //     Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6ImdhUHh3eVBvRVdwcGFaMlFlWkNsNDlCal9jQUhlY2dhRVd2UXR2RWJjZHMiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzQyNjgzLCJuYmYiOjE3NTA3NDI2ODMsImV4cCI6MTc1MDc0Njk5MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBM0hoNUVUT3FRQ0lDbmw5bE9RK1N6TjBFTG9XQzJOZ0tjUXpTMEhPcG1GRi92bzhuMUphRCtFRmVlSkJsTmxndHdyNnNKSzR1VUVrTy9FdGRuV2hBQkJwckpDZ2JiSC8vcDRNdzIyWmwyWi9DR3B4S29rOUQwYk5NNXE0MkdvalciLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiTUVrREwxWi1uRWF1czg2NUh4cVlBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiJxQmVPeExITVpSR0VtcU9mTlpPT1g1VzJIYXlpOUtOQjVoLTBfSV9GSlB3QmFtRndZVzVsWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiIxIDIwIiwieG1zX3N0Ijp7InN1YiI6Ikh0bFkzbHVqS1gtYjVMRWVkN0VPX3Z0T2YwbWVGZmNZYlgzaTNKeUpPaWsifSwieG1zX3RjZHQiOjE2MjY0MjMyNDR9.YznfiMmWpielHJSmLJ6r95rTWhxjBocqFrh70PzsnG6LFOxFi6WdtXBccN3zA99oS7AcoNCzWhTqxPTUt15huHxrZKgjBHc2Ceul9QjSDf-2-xqc9AyHzVmtuPy-9xm_fGam2ffVMLqVhhugb0uQr0oAp5UBYupd9aHgGcZpnAig_hLYBpI-uRHjxjAfpDMmVM_79k5-09rGNsLO2dV78Empw9DH8Czk7N-krKwSV545L4w0tPSbbkeAOFlplV7t_mhKWuZfmIcg6v5A62doDU9QHFybWZaeHr2YbXYqPGbLTaHmPaM3DWsp6iy6Ris8Vv2Rj9Z5COIi6i84P75zAg`,
-                    //     Accept: "application/json",
-                    //   },
-                    // });
-
-                    // if (!response.ok) {
-                    //   body.insertParagraph(`Failed to fetch user profile: ${response.statusText}`, Word.InsertLocation.end);
-                    // } else {
-                    //   const profile = await response.json();
-                    //   body.insertParagraph(
-                    //     `User: ${profile.displayName} (${profile.mail || profile.userPrincipalName})`,
-                    //     Word.InsertLocation.end
-                    //   );
-                    // }
-                    // // Fetch user photo as a Blob from Microsoft Graph
-                    // const photoResponse = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
-                    //   headers: {
-                    //     Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6ImdhUHh3eVBvRVdwcGFaMlFlWkNsNDlCal9jQUhlY2dhRVd2UXR2RWJjZHMiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzQyNjgzLCJuYmYiOjE3NTA3NDI2ODMsImV4cCI6MTc1MDc0Njk5MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBM0hoNUVUT3FRQ0lDbmw5bE9RK1N6TjBFTG9XQzJOZ0tjUXpTMEhPcG1GRi92bzhuMUphRCtFRmVlSkJsTmxndHdyNnNKSzR1VUVrTy9FdGRuV2hBQkJwckpDZ2JiSC8vcDRNdzIyWmwyWi9DR3B4S29rOUQwYk5NNXE0MkdvalciLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiTUVrREwxWi1uRWF1czg2NUh4cVlBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiJxQmVPeExITVpSR0VtcU9mTlpPT1g1VzJIYXlpOUtOQjVoLTBfSV9GSlB3QmFtRndZVzVsWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiIxIDIwIiwieG1zX3N0Ijp7InN1YiI6Ikh0bFkzbHVqS1gtYjVMRWVkN0VPX3Z0T2YwbWVGZmNZYlgzaTNKeUpPaWsifSwieG1zX3RjZHQiOjE2MjY0MjMyNDR9.YznfiMmWpielHJSmLJ6r95rTWhxjBocqFrh70PzsnG6LFOxFi6WdtXBccN3zA99oS7AcoNCzWhTqxPTUt15huHxrZKgjBHc2Ceul9QjSDf-2-xqc9AyHzVmtuPy-9xm_fGam2ffVMLqVhhugb0uQr0oAp5UBYupd9aHgGcZpnAig_hLYBpI-uRHjxjAfpDMmVM_79k5-09rGNsLO2dV78Empw9DH8Czk7N-krKwSV545L4w0tPSbbkeAOFlplV7t_mhKWuZfmIcg6v5A62doDU9QHFybWZaeHr2YbXYqPGbLTaHmPaM3DWsp6iy6Ris8Vv2Rj9Z5COIi6i84P75zAg`,
-                    //     Accept: "image/*",
-                    //   },
-                    // });
-
-                    // if (photoResponse.ok) {
-                    //   const blob = await photoResponse.blob();
-                    //   const reader = new FileReader();
-                    //   reader.onloadend = function () {
-                    //     const base64data = reader.result as string;
-                    //     // Insert the image into the document
-                    //     const imagePara = body.insertParagraph("", Word.InsertLocation.end);
-                    //     imagePara.insertInlinePictureFromBase64(base64data.split(",")[1], Word.InsertLocation.replace);
-                    //   };
-                    //   reader.readAsDataURL(blob);
-                    //   await context.sync();
-                    // } else {
-                    //   body.insertParagraph(`Failed to fetch user photo: ${photoResponse.statusText}`, Word.InsertLocation.end);
-                    //   await context.sync();
-                    // }
-                  case 19:
+                    _context.next = 21;
+                    return context.sync();
+                  case 21:
+                    _context.next = 23;
+                    return fetch("https://graph.microsoft.com/v1.0/me", {
+                      headers: {
+                        Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6IkZMMC1Oc1BTUnB0RGVaOERlZHc4VlZ4V1k3RnhNX1B1ay1WbTc2Z0hyOEEiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzUwNzM3LCJuYmYiOjE3NTA3NTA3MzcsImV4cCI6MTc1MDc1NjM4MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBTFUrbklDK3pLdTFjeDZkZDhTWEl1OGg0VEFwanUvM2xjOUkvVkF4eEJoY0tJZmVkZmZIUEsyTlV4NFgzQnZJL2NCbHMvODIvRlRjNE9ST1ZVZFZSNWlJZnNONzZNZ3lOOEJzTzJVVFRCTjhYWHpyWWhZUDBBQ2NKMnZTU2pTcC8iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiaFVNYXJGSm9VVUNXLWJjLWpqS2tBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiIxajJQRHNoVnNtNVd4eG1xMVNlcmg3ZkkxUHRyZ3NoWlNWamNXMVJydFNNQmFtRndZVzVsWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiIxNiAxIiwieG1zX3N0Ijp7InN1YiI6Ikh0bFkzbHVqS1gtYjVMRWVkN0VPX3Z0T2YwbWVGZmNZYlgzaTNKeUpPaWsifSwieG1zX3RjZHQiOjE2MjY0MjMyNDR9.XwqHtf1Ku8-ViJ9BApJ-OecpEy6PlgC3vW5M0Ur73mJVulgeHfLCtgyos5ANFSVRMrWDyC3cgzOgfuGJisZTA0EvNK1m304d3orl6HqgeMRYqzszHP4STDYAVG2m1dKGzXjYM0uFrsa-ibWhvt5_xrai__lLzPDgXqCBxrHTbaXxIC6Nb6Q5SuO9qxaNjKFxuGWoCIXPpEt7Pf69fTBdK0KV6YUDPFwgTqcCCx-kMzm04TjahWkUn3yi5cF5-RqOxBTnHYHU6GgOS_Df7CR_PcMh6ecwUHIYcgw0SFx7kcM_bj-7-lML1QAYDgxQwPRvNPrwlilQPKNEMtQl3HWtWQ",
+                        Accept: "application/json"
+                      }
+                    });
+                  case 23:
+                    response = _context.sent;
+                    if (response.ok) {
+                      _context.next = 28;
+                      break;
+                    }
+                    body.insertParagraph("Failed to fetch user profile: ".concat(response.statusText), Word.InsertLocation.end);
+                    _context.next = 32;
+                    break;
+                  case 28:
+                    _context.next = 30;
+                    return response.json();
+                  case 30:
+                    profile = _context.sent;
+                    body.insertParagraph("User: ".concat(profile.displayName, " (").concat(profile.mail || profile.userPrincipalName, ")"), Word.InsertLocation.end);
+                  case 32:
+                    _context.next = 34;
+                    return fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
+                      headers: {
+                        Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6IkZMMC1Oc1BTUnB0RGVaOERlZHc4VlZ4V1k3RnhNX1B1ay1WbTc2Z0hyOEEiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzUwNzM3LCJuYmYiOjE3NTA3NTA3MzcsImV4cCI6MTc1MDc1NjM4MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBTFUrbklDK3pLdTFjeDZkZDhTWEl1OGg0VEFwanUvM2xjOUkvVkF4eEJoY0tJZmVkZmZIUEsyTlV4NFgzQnZJL2NCbHMvODIvRlRjNE9ST1ZVZFZSNWlJZnNONzZNZ3lOOEJzTzJVVFRCTjhYWHpyWWhZUDBBQ2NKMnZTU2pTcC8iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiaFVNYXJGSm9VVUNXLWJjLWpqS2tBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiIxajJQRHNoVnNtNVd4eG1xMVNlcmg3ZkkxUHRyZ3NoWlNWamNXMVJydFNNQmFtRndZVzVsWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiIxNiAxIiwieG1zX3N0Ijp7InN1YiI6Ikh0bFkzbHVqS1gtYjVMRWVkN0VPX3Z0T2YwbWVGZmNZYlgzaTNKeUpPaWsifSwieG1zX3RjZHQiOjE2MjY0MjMyNDR9.XwqHtf1Ku8-ViJ9BApJ-OecpEy6PlgC3vW5M0Ur73mJVulgeHfLCtgyos5ANFSVRMrWDyC3cgzOgfuGJisZTA0EvNK1m304d3orl6HqgeMRYqzszHP4STDYAVG2m1dKGzXjYM0uFrsa-ibWhvt5_xrai__lLzPDgXqCBxrHTbaXxIC6Nb6Q5SuO9qxaNjKFxuGWoCIXPpEt7Pf69fTBdK0KV6YUDPFwgTqcCCx-kMzm04TjahWkUn3yi5cF5-RqOxBTnHYHU6GgOS_Df7CR_PcMh6ecwUHIYcgw0SFx7kcM_bj-7-lML1QAYDgxQwPRvNPrwlilQPKNEMtQl3HWtWQ",
+                        Accept: "image/*"
+                      }
+                    });
+                  case 34:
+                    photoResponse = _context.sent;
+                    if (!photoResponse.ok) {
+                      _context.next = 46;
+                      break;
+                    }
+                    _context.next = 38;
+                    return photoResponse.blob();
+                  case 38:
+                    blob = _context.sent;
+                    reader = new FileReader();
+                    reader.onloadend = function () {
+                      var base64data = reader.result;
+                      // Insert the image into the document
+                      var imagePara = body.insertParagraph("", Word.InsertLocation.end);
+                      imagePara.insertInlinePictureFromBase64(base64data.split(",")[1], Word.InsertLocation.replace);
+                    };
+                    reader.readAsDataURL(blob);
+                    _context.next = 44;
+                    return context.sync();
+                  case 44:
+                    _context.next = 49;
+                    break;
+                  case 46:
+                    body.insertParagraph("Failed to fetch user photo: ".concat(photoResponse.statusText), Word.InsertLocation.end);
+                    _context.next = 49;
+                    return context.sync();
+                  case 49:
                   case "end":
                     return _context.stop();
                 }
