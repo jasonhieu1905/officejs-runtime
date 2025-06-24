@@ -62,7 +62,7 @@ function _changeHeader() {
                     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
                     // 6) Insert your HTML into *that* content control, replacing the placeholder
-                    cc.insertHtml("<h3 style='color: red'>Hello doan 3</h3>", Word.InsertLocation.replace);
+                    cc.insertHtml("<h3 style='color: red'>Hello doan 4</h3>", Word.InsertLocation.replace);
 
                     // 8) Sync once at the end
                     _context.next = 21;
