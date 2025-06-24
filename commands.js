@@ -62,7 +62,7 @@ function _changeHeader() {
                     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
                     // 6) Insert your HTML into *that* content control, replacing the placeholder
-                    cc.insertHtml("<h3 style='color: red'>Hello doan 4</h3>", Word.InsertLocation.replace);
+                    cc.insertHtml("<h3 style='color: red'>Hello doan 1</h3>", Word.InsertLocation.replace);
 
                     // 8) Sync once at the end
                     _context.next = 21;
@@ -109,34 +109,33 @@ function _fetchProfile() {
               }).then(function (res) {
                 if (!res.ok) throw new Error("".concat(res.status, " ").concat(res.statusText));
                 return res.json();
+              }).catch(function (fetchErr) {
+                // On ANY fetch error (network, CORS, etc), fall back to XHR
+                return new Promise(function (resolve, reject) {
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("GET", url);
+                  for (var name in headers) {
+                    xhr.setRequestHeader(name, headers[name]);
+                  }
+                  xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4) return;
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                      try {
+                        resolve(JSON.parse(xhr.responseText));
+                      } catch (e) {
+                        reject(new Error("Invalid JSON: " + e.message));
+                      }
+                    } else {
+                      reject(new Error("".concat(xhr.status, " ").concat(xhr.statusText)));
+                    }
+                  };
+                  xhr.onerror = function () {
+                    return reject(new Error("XHR network error"));
+                  };
+                  xhr.send();
+                });
               });
             }
-            // Otherwise fall back to XMLHttpRequest
-            return new Promise(function (resolve, reject) {
-              var xhr = new XMLHttpRequest();
-              xhr.open("GET", url);
-              // set all headers
-              for (var name in headers) {
-                xhr.setRequestHeader(name, headers[name]);
-              }
-              xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                  if (xhr.status >= 200 && xhr.status < 300) {
-                    try {
-                      resolve(JSON.parse(xhr.responseText));
-                    } catch (e) {
-                      reject(new Error("Invalid JSON: " + e.message));
-                    }
-                  } else {
-                    reject(new Error("".concat(xhr.status, " ").concat(xhr.statusText)));
-                  }
-                }
-              };
-              xhr.onerror = function () {
-                return reject(new Error("Network error"));
-              };
-              xhr.send();
-            });
           };
           body = context.document.body;
           graphUrl = "https://graph.microsoft.com/v1.0/me";
