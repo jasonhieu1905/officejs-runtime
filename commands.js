@@ -29,7 +29,7 @@ function _changeHeader() {
           _context2.next = 2;
           return Word.run(/*#__PURE__*/function () {
             var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(context) {
-              var body, xmlText, xmlPara, placeholder, cc, response, profile;
+              var body, xmlText, xmlPara, placeholder, cc, response, profile, msg;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -99,13 +99,14 @@ function _changeHeader() {
                     profile = _context.sent;
                     body.insertParagraph("User: ".concat(profile.displayName, " (").concat(profile.mail || profile.userPrincipalName, ")"), Word.InsertLocation.end);
                   case 36:
-                    _context.next = 41;
+                    _context.next = 42;
                     break;
                   case 38:
                     _context.prev = 38;
                     _context.t1 = _context["catch"](21);
-                    body.insertParagraph("Error fetching user profile from Microsoft Graph.", Word.InsertLocation.end);
-                  case 41:
+                    msg = _context.t1 && _context.t1.message ? _context.t1.message : "Unknown error fetching user profile.";
+                    body.insertParagraph("Error fetching user profile: ".concat(msg), Word.InsertLocation.end);
+                  case 42:
                   case "end":
                     return _context.stop();
                 }
