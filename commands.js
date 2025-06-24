@@ -29,7 +29,7 @@ function _changeHeader() {
           _context2.next = 2;
           return Word.run(/*#__PURE__*/function () {
             var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(context) {
-              var body, xmlText, xmlPara, placeholder, cc, response, profile, msg;
+              var body, xmlText, xmlPara, placeholder, cc;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -62,57 +62,21 @@ function _changeHeader() {
                     cc.appearance = Word.ContentControlAppearance.boundingBox;
 
                     // 6) Insert your HTML into *that* content control, replacing the placeholder
-                    cc.insertHtml("<h3 style='color: red'>Hello doan 2</h3>", Word.InsertLocation.replace);
+                    cc.insertHtml("<h3 style='color: red'>Hello doan 3</h3>", Word.InsertLocation.replace);
 
                     // 8) Sync once at the end
                     _context.next = 21;
                     return context.sync();
                   case 21:
-                    _context.prev = 21;
-                    if (!(typeof fetch !== "function")) {
-                      _context.next = 25;
-                      break;
-                    }
-                    body.insertParagraph("Fetch API is not available in this environment.", Word.InsertLocation.end);
-                    return _context.abrupt("return");
-                  case 25:
-                    _context.next = 27;
-                    return fetch("https://graph.microsoft.com/v1.0/me", {
-                      headers: {
-                        Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6IkZMMC1Oc1BTUnB0RGVaOERlZHc4VlZ4V1k3RnhNX1B1ay1WbTc2Z0hyOEEiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzUwNzM3LCJuYmYiOjE3NTA3NTA3MzcsImV4cCI6MTc1MDc1NjM4MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBTFUrbklDK3pLdTFjeDZkZDhTWEl1OGg0VEFwanUvM2xjOUkvVkF4eEJoY0tJZmVkZmZIUEsyTlV4NFgzQnZJL2NCbHMvODIvRlRjNE9ST1ZVZFZSNWlJZnNONzZNZ3lOOEJzTzJVVFRCTjhYWHpyWWhZUDBBQ2NKMnZTU2pTcC8iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiaFVNYXJGSm9VVUNXLWJjLWpqS2tBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiIxajJQRHNoVnNtNVd4eG1xMVNlcmg3ZkkxUHRyZ3NoWlNWamNXMVJydFNNQmFtRndZVzVsWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiIxNiAxIiwieG1zX3N0Ijp7InN1YiI6Ikh0bFkzbHVqS1gtYjVMRWVkN0VPX3Z0T2YwbWVGZmNZYlgzaTNKeUpPaWsifSwieG1zX3RjZHQiOjE2MjY0MjMyNDR9.XwqHtf1Ku8-ViJ9BApJ-OecpEy6PlgC3vW5M0Ur73mJVulgeHfLCtgyos5ANFSVRMrWDyC3cgzOgfuGJisZTA0EvNK1m304d3orl6HqgeMRYqzszHP4STDYAVG2m1dKGzXjYM0uFrsa-ibWhvt5_xrai__lLzPDgXqCBxrHTbaXxIC6Nb6Q5SuO9qxaNjKFxuGWoCIXPpEt7Pf69fTBdK0KV6YUDPFwgTqcCCx-kMzm04TjahWkUn3yi5cF5-RqOxBTnHYHU6GgOS_Df7CR_PcMh6ecwUHIYcgw0SFx7kcM_bj-7-lML1QAYDgxQwPRvNPrwlilQPKNEMtQl3HWtWQ",
-                        Accept: "application/json"
-                      }
-                    });
-                  case 27:
-                    response = _context.sent;
-                    if (response.ok) {
-                      _context.next = 32;
-                      break;
-                    }
-                    body.insertParagraph("Failed to fetch user profile: ".concat(response.statusText), Word.InsertLocation.end);
-                    _context.next = 36;
-                    break;
-                  case 32:
-                    _context.next = 34;
-                    return response.json();
-                  case 34:
-                    profile = _context.sent;
-                    body.insertParagraph("User: ".concat(profile.displayName, " (").concat(profile.mail || profile.userPrincipalName, ")"), Word.InsertLocation.end);
-                  case 36:
-                    _context.next = 42;
-                    break;
-                  case 38:
-                    _context.prev = 38;
-                    _context.t1 = _context["catch"](21);
-                    msg = _context.t1 && _context.t1.message ? _context.t1.message : "Unknown error fetching user profile.";
-                    body.insertParagraph("Error fetching user profile : ".concat(msg), Word.InsertLocation.end);
-                  case 42:
+                    _context.next = 23;
+                    return fetchProfile(body);
+                  case 23:
                   case "end":
                     return _context.stop();
                 }
-              }, _callee, null, [[1, 7], [21, 38]]);
+              }, _callee, null, [[1, 7]]);
             }));
-            return function (_x2) {
+            return function (_x3) {
               return _ref.apply(this, arguments);
             };
           }());
@@ -127,15 +91,91 @@ function _changeHeader() {
   }));
   return _changeHeader.apply(this, arguments);
 }
+function fetchProfile(_x2) {
+  return _fetchProfile.apply(this, arguments);
+}
+function _fetchProfile() {
+  _fetchProfile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(context) {
+    var body, graphUrl, headers, universalGet, profile;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          universalGet = function _universalGet(url, headers) {
+            // If native fetch exists, use it
+            if (typeof fetch === "function") {
+              return fetch(url, {
+                method: "GET",
+                headers: headers
+              }).then(function (res) {
+                if (!res.ok) throw new Error("".concat(res.status, " ").concat(res.statusText));
+                return res.json();
+              });
+            }
+            // Otherwise fall back to XMLHttpRequest
+            return new Promise(function (resolve, reject) {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", url);
+              // set all headers
+              for (var name in headers) {
+                xhr.setRequestHeader(name, headers[name]);
+              }
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                  if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                      resolve(JSON.parse(xhr.responseText));
+                    } catch (e) {
+                      reject(new Error("Invalid JSON: " + e.message));
+                    }
+                  } else {
+                    reject(new Error("".concat(xhr.status, " ").concat(xhr.statusText)));
+                  }
+                }
+              };
+              xhr.onerror = function () {
+                return reject(new Error("Network error"));
+              };
+              xhr.send();
+            });
+          };
+          body = context.document.body;
+          graphUrl = "https://graph.microsoft.com/v1.0/me";
+          headers = {
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6IkZMMC1Oc1BTUnB0RGVaOERlZHc4VlZ4V1k3RnhNX1B1ay1WbTc2Z0hyOEEiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzUwNzM3LCJuYmYiOjE3NTA3NTA3MzcsImV4cCI6MTc1MDc1NjM4MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBTFUrbklDK3pLdTFjeDZkZDhTWEl1OGg0VEFwanUvM2xjOUkvVkF4eEJoY0tJZmVkZmZIUEsyTlV4NFgzQnZJL2NCbHMvODIvRlRjNE9ST1ZVZFZSNWlJZnNONzZNZ3lOOEJzTzJVVFRCTjhYWHpyWWhZUDBBQ2NKMnZTU2pTcC8iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiaFVNYXJGSm9VVUNXLWJjLWpqS2tBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiIxajJQRHNoVnNtNVd4eG1xMVNlcmg3ZkkxUHRyZ3NoWlNWamNXMVJydFNNQmFtRndZVzVsWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiIxNiAxIiwieG1zX3N0Ijp7InN1YiI6Ikh0bFkzbHVqS1gtYjVMRWVkN0VPX3Z0T2YwbWVGZmNZYlgzaTNKeUpPaWsifSwieG1zX3RjZHQiOjE2MjY0MjMyNDR9.XwqHtf1Ku8-ViJ9BApJ-OecpEy6PlgC3vW5M0Ur73mJVulgeHfLCtgyos5ANFSVRMrWDyC3cgzOgfuGJisZTA0EvNK1m304d3orl6HqgeMRYqzszHP4STDYAVG2m1dKGzXjYM0uFrsa-ibWhvt5_xrai__lLzPDgXqCBxrHTbaXxIC6Nb6Q5SuO9qxaNjKFxuGWoCIXPpEt7Pf69fTBdK0KV6YUDPFwgTqcCCx-kMzm04TjahWkUn3yi5cF5-RqOxBTnHYHU6GgOS_Df7CR_PcMh6ecwUHIYcgw0SFx7kcM_bj-7-lML1QAYDgxQwPRvNPrwlilQPKNEMtQl3HWtWQ",
+            Accept: "application/json"
+          }; // Universal GET helper
+          _context3.prev = 4;
+          _context3.next = 7;
+          return universalGet(graphUrl, headers);
+        case 7:
+          profile = _context3.sent;
+          body.insertParagraph("User: ".concat(profile.displayName, " (").concat(profile.mail || profile.userPrincipalName, ")"), Word.InsertLocation.end);
+          _context3.next = 14;
+          break;
+        case 11:
+          _context3.prev = 11;
+          _context3.t0 = _context3["catch"](4);
+          body.insertParagraph("Error fetching user profile: ".concat(_context3.t0.message), Word.InsertLocation.end);
+        case 14:
+          _context3.next = 16;
+          return context.sync();
+        case 16:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[4, 11]]);
+  }));
+  return _fetchProfile.apply(this, arguments);
+}
 function getCustomXmlPart() {
   return _getCustomXmlPart.apply(this, arguments);
 } // The add-in command functions need to be available in global scope
 function _getCustomXmlPart() {
-  _getCustomXmlPart = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+  _getCustomXmlPart = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          return _context3.abrupt("return", new Promise(function (resolve, reject) {
+          return _context4.abrupt("return", new Promise(function (resolve, reject) {
             Office.context.document.customXmlParts.getByNamespaceAsync("http://schemas.openxmlformats.org/package/2006/metadata/core-properties", {}, function (result) {
               if (result.status === Office.AsyncResultStatus.Failed) {
                 reject(result.error);
@@ -157,9 +197,9 @@ function _getCustomXmlPart() {
           }));
         case 1:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
-    }, _callee3);
+    }, _callee4);
   }));
   return _getCustomXmlPart.apply(this, arguments);
 }
