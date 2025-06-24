@@ -69,7 +69,7 @@ function _changeHeader() {
                     return context.sync();
                   case 21:
                     _context.next = 23;
-                    return fetchProfile(body);
+                    return fetchProfile(context);
                   case 23:
                   case "end":
                     return _context.stop();
