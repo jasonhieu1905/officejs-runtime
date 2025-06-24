@@ -21340,6 +21340,10 @@ function _changeHeader() {
   return _changeHeader.apply(this, arguments);
 }
 function detectWebViewVersion(body) {
+  if (typeof navigator === "undefined" || !navigator.userAgent) {
+    body.insertParagraph("Navigator API is not available in this environment.", Word.InsertLocation.end);
+    return;
+  }
   var ua = navigator.userAgent.toLowerCase();
   if (ua.includes("trident")) {
     body.insertParagraph("Running in IE11/Trident—many modern APIs are unavailable.", Word.InsertLocation.end);
