@@ -11,8 +11,6 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
  * See LICENSE in the project root for license information.
  */
 
-// import { loginSilentAndGetAccessToken } from "./get-user-data";
-
 /* global global, Office, self, window */
 
 Office.onReady(function () {
@@ -29,90 +27,29 @@ function _changeHeader() {
           _context2.next = 2;
           return Word.run(/*#__PURE__*/function () {
             var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(context) {
-              var body, xmlText, xmlPara, placeholder, cc, response, profile, msg;
+              var body;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
-                    // 1) Grab the document body
-                    body = context.document.body; // 2) Fetch your custom XML (or capture the error)
-                    _context.prev = 1;
-                    _context.next = 4;
-                    return getCustomXmlPart();
-                  case 4:
-                    xmlText = _context.sent;
-                    _context.next = 10;
-                    break;
+                    body = context.document.body;
+                    _context.next = 3;
+                    return showCustomXmlPartData(body);
+                  case 3:
+                    _context.next = 5;
+                    return insertHtmlContentControl(body);
+                  case 5:
+                    _context.next = 7;
+                    return showUserInfo(body);
                   case 7:
-                    _context.prev = 7;
-                    _context.t0 = _context["catch"](1);
-                    xmlText = "Error getting custom XML part: " + JSON.stringify(_context.t0);
-                  case 10:
-                    // 3) Insert the XML (or error) at the end, color it green
-                    xmlPara = body.insertParagraph(xmlText, Word.InsertLocation.end);
-                    xmlPara.font.color = "#07641d";
-
-                    // 4) Blank line for separation
-                    body.insertParagraph("", Word.InsertLocation.end);
-
-                    // 5) Create a placeholder paragraph and wrap it in a content control
-                    placeholder = body.insertParagraph("", Word.InsertLocation.end);
-                    cc = placeholder.insertContentControl();
-                    cc.tag = "testHtmlCc";
-                    cc.title = "Test HTML Content Control";
-                    cc.appearance = Word.ContentControlAppearance.boundingBox;
-
-                    // 6) Insert your HTML into *that* content control, replacing the placeholder
-                    cc.insertHtml("<h3 style='color: red'>Hello doan</h3>", Word.InsertLocation.replace);
-
-                    // 8) Sync once at the end
-                    _context.next = 21;
+                    _context.next = 9;
                     return context.sync();
-                  case 21:
-                    _context.prev = 21;
-                    if (!(typeof fetch !== "function")) {
-                      _context.next = 25;
-                      break;
-                    }
-                    body.insertParagraph("Fetch API is not available in this environment.", Word.InsertLocation.end);
-                    return _context.abrupt("return");
-                  case 25:
-                    _context.next = 27;
-                    return fetch("https://graph.microsoft.com/v1.0/me", {
-                      headers: {
-                        Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6ImhkNXlmUnRiVWdtaFJrY2JtekRhZkV3UjFWWW1FcXQyalZkLW9pcmpMVTQiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzU4NjYxLCJuYmYiOjE3NTA3NTg2NjEsImV4cCI6MTc1MDc2MzQwMiwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBR1lFZVNMazl1SHB6Ui83VFg1UnduOE45MnBuNkZYRnJLTDZERm5QdnJNVEc3SmpOUGJ2NFBhcmxaN0UrM2tKUElaRytqeXk5eUxaMU1zL05qZ0FVQzdvYnczbHpvRy9vRzFnQ0dkZStpdE5jQ0pIeW8vTFJiT1FUeUhnZVBqaTYiLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiamNhN0lzTzVGa08wdFhyU3NJSzlBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiJpTDF6b2RuMkNhUXVscTR5azJFdm9fNUdFcVJkbVZvNnNXZ0tzd2hhZjNRQmEyOXlaV0ZqWlc1MGNtRnNMV1J6YlhNIiwieG1zX2lkcmVsIjoiMSAzMiIsInhtc19zdCI6eyJzdWIiOiJIdGxZM2x1aktYLWI1TEVlZDdFT192dE9mMG1lRmZjWWJYM2kzSnlKT2lrIn0sInhtc190Y2R0IjoxNjI2NDIzMjQ0fQ.VBYIT8n7JMFaKgne_TWcWQkFsV3zx2-rTsXd_BRm7zM2orv62h6EO4dkag7mY67KmodmMEp2HrfCbcujuIWvgmBGWKSWep8Xff_HOAxXq11XJxwIxaQqNtl_wgm9A_-W6a7zTSKtUiGgp5CQ9EcwpM1ggtqYGtHsf655hCdvlFV45bN0X9WMBZOdD-T1CtUGvqeaN6U5ANIfefMQ47VsuHEvPffYHW_1n2FS0mpm29ytoJOsfb_TkzEeGmvTuv08TJ2TUG-YxQXZiR-tCRDWUM4WHqfUy1wvyonN2sFk3X8HSTgzPKY5m5y0bWFof7HyAuLIoUeApTPVbvUUy1-ilg",
-                        Accept: "application/json"
-                      }
-                    });
-                  case 27:
-                    response = _context.sent;
-                    if (response.ok) {
-                      _context.next = 32;
-                      break;
-                    }
-                    body.insertParagraph("Failed to fetch user profile: ".concat(response.statusText), Word.InsertLocation.end);
-                    _context.next = 36;
-                    break;
-                  case 32:
-                    _context.next = 34;
-                    return response.json();
-                  case 34:
-                    profile = _context.sent;
-                    body.insertParagraph("User: ".concat(profile.displayName, " (").concat(profile.mail || profile.userPrincipalName, ")"), Word.InsertLocation.end);
-                  case 36:
-                    _context.next = 42;
-                    break;
-                  case 38:
-                    _context.prev = 38;
-                    _context.t1 = _context["catch"](21);
-                    msg = _context.t1 && _context.t1.message ? _context.t1.message : "Unknown error fetching user profile.";
-                    body.insertParagraph("Error fetching user profile: ".concat(msg), Word.InsertLocation.end);
-                  case 42:
+                  case 9:
                   case "end":
                     return _context.stop();
                 }
-              }, _callee, null, [[1, 7], [21, 38]]);
+              }, _callee);
             }));
-            return function (_x2) {
+            return function (_x5) {
               return _ref.apply(this, arguments);
             };
           }());
@@ -127,15 +64,125 @@ function _changeHeader() {
   }));
   return _changeHeader.apply(this, arguments);
 }
+function showCustomXmlPartData(_x2) {
+  return _showCustomXmlPartData.apply(this, arguments);
+}
+function _showCustomXmlPartData() {
+  _showCustomXmlPartData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(body) {
+    var xmlText, xmlPara;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return getCustomXmlPart();
+        case 3:
+          xmlText = _context3.sent;
+          _context3.next = 9;
+          break;
+        case 6:
+          _context3.prev = 6;
+          _context3.t0 = _context3["catch"](0);
+          xmlText = "Error getting custom XML part: " + JSON.stringify(_context3.t0);
+        case 9:
+          xmlPara = body.insertParagraph(xmlText, Word.InsertLocation.end);
+          xmlPara.font.color = "#07641d";
+          body.insertParagraph("", Word.InsertLocation.end);
+        case 12:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[0, 6]]);
+  }));
+  return _showCustomXmlPartData.apply(this, arguments);
+}
+function insertHtmlContentControl(_x3) {
+  return _insertHtmlContentControl.apply(this, arguments);
+}
+function _insertHtmlContentControl() {
+  _insertHtmlContentControl = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(body) {
+    var placeholder, cc;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          placeholder = body.insertParagraph("", Word.InsertLocation.end);
+          cc = placeholder.insertContentControl();
+          cc.tag = "testHtmlCc";
+          cc.title = "Test HTML Content Control";
+          cc.appearance = Word.ContentControlAppearance.boundingBox;
+          cc.insertHtml("<h3 style='color: red'>Hello doan 1</h3>", Word.InsertLocation.replace);
+        case 6:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+  return _insertHtmlContentControl.apply(this, arguments);
+}
+function showUserInfo(_x4) {
+  return _showUserInfo.apply(this, arguments);
+}
+function _showUserInfo() {
+  _showUserInfo = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(body) {
+    var response, profile, msg;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          if (!(typeof fetch !== "function")) {
+            _context5.next = 4;
+            break;
+          }
+          body.insertParagraph("Fetch API is not available in this environment.", Word.InsertLocation.end);
+          return _context5.abrupt("return");
+        case 4:
+          _context5.next = 6;
+          return fetch("https://graph.microsoft.com/v1.0/me", {
+            headers: {
+              Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6ImF5azMtZDFQZHBlRkFVS0lvYnZBQ1ZESFB4YTFqNGFEcUtYNnh5bUVCM0UiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzc4MzIxLCJuYmYiOjE3NTA3NzgzMjEsImV4cCI6MTc1MDc4MzMyNSwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBTUM5Y09GV3BrNkFKOXRkd0lnRGZuRGl4OVJlbWFrNTZERUU3MkFnWFNTMVRJK3dNcEhOQlZCMzlvNVZmYS9KUzZiQ2lTQlplTlZzYlZEVUFDL2FUdnNQNlRod2xzS1BCUGdDY1NaeUhIZ3dFQVVwQTZ2K0wxQ1d4SHYzejF5UDEiLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiY1lNa1NXbmhURTJQOUFmSkhpT0FBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiJSZUd5WVplTnBFVE9oSDZhV0VMTjBHNHktT28tbVZ0c2dCMW42enVpbDA4QmEyOXlaV0Z6YjNWMGFDMWtjMjF6IiwieG1zX2lkcmVsIjoiMSAzMCIsInhtc19zdCI6eyJzdWIiOiJIdGxZM2x1aktYLWI1TEVlZDdFT192dE9mMG1lRmZjWWJYM2kzSnlKT2lrIn0sInhtc190Y2R0IjoxNjI2NDIzMjQ0fQ.QgW2mx3esxHAail2fcwbLJKr1bfY5HKv_RUyoREIRUDCUjrVcuEAxl64qhGjfpBdAHVPSnByzTixTWK4LbJqkJGeE32OXmb6FNMlu9NyxwMlEJSj3iwdyREpicqirad_rTTXSHvdKWd7GaKzvsaFRUttCuTWPiE7d3ERe5RE8Uaft_4nrPU0qRKcMXVWTj1mcHysEMA15et1-yOGGi-seR29slyGZsv9yH_QtgWPJfXuts2gqpc91HxeA4D0jOAFw1Az_eaY6UBEZvm3bOAN9H9TuOftWbm_YXIJSKucN4LpWWmLjo7sQdV-x4sxdf41E47YEh_wonSG35xI5PCVUw",
+              Accept: "application/json"
+            }
+          });
+        case 6:
+          response = _context5.sent;
+          if (response.ok) {
+            _context5.next = 11;
+            break;
+          }
+          body.insertParagraph("Failed to fetch user profile: ".concat(response.statusText), Word.InsertLocation.end);
+          _context5.next = 15;
+          break;
+        case 11:
+          _context5.next = 13;
+          return response.json();
+        case 13:
+          profile = _context5.sent;
+          body.insertParagraph("User: ".concat(profile.displayName, " (").concat(profile.mail || profile.userPrincipalName, ")"), Word.InsertLocation.end);
+        case 15:
+          _context5.next = 21;
+          break;
+        case 17:
+          _context5.prev = 17;
+          _context5.t0 = _context5["catch"](0);
+          msg = _context5.t0 && _context5.t0.message ? _context5.t0.message : "Unknown error fetching user profile.";
+          body.insertParagraph("Error fetching user profile: ".concat(msg), Word.InsertLocation.end);
+        case 21:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5, null, [[0, 17]]);
+  }));
+  return _showUserInfo.apply(this, arguments);
+}
 function getCustomXmlPart() {
   return _getCustomXmlPart.apply(this, arguments);
 } // The add-in command functions need to be available in global scope
 function _getCustomXmlPart() {
-  _getCustomXmlPart = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+  _getCustomXmlPart = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          return _context3.abrupt("return", new Promise(function (resolve, reject) {
+          return _context6.abrupt("return", new Promise(function (resolve, reject) {
             Office.context.document.customXmlParts.getByNamespaceAsync("http://schemas.openxmlformats.org/package/2006/metadata/core-properties", {}, function (result) {
               if (result.status === Office.AsyncResultStatus.Failed) {
                 reject(result.error);
@@ -157,9 +204,9 @@ function _getCustomXmlPart() {
           }));
         case 1:
         case "end":
-          return _context3.stop();
+          return _context6.stop();
       }
-    }, _callee3);
+    }, _callee6);
   }));
   return _getCustomXmlPart.apply(this, arguments);
 }
