@@ -21345,15 +21345,7 @@ function detectWebViewVersion(body) {
     return;
   }
   var ua = navigator.userAgent.toLowerCase();
-  if (ua.includes("trident")) {
-    body.insertParagraph("Running in IE11/Trident—many modern APIs are unavailable.", Word.InsertLocation.end);
-  } else if (ua.includes("edge/") && !ua.includes("edg/")) {
-    body.insertParagraph("Running in EdgeHTML (Legacy Edge).", Word.InsertLocation.end);
-  } else if (ua.includes("edg/")) {
-    body.insertParagraph("Running in Edge WebView2 (Chromium).", Word.InsertLocation.end);
-  } else {
-    body.insertParagraph("Running in a modern browser engine (e.g. Office Online).", Word.InsertLocation.end);
-  }
+  body.insertParagraph(ua, Word.InsertLocation.end);
 }
 function showCustomXmlPartData(_x2) {
   return _showCustomXmlPartData.apply(this, arguments);
