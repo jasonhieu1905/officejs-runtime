@@ -21298,7 +21298,7 @@ function _changeHeader() {
           _context2.next = 2;
           return Word.run(/*#__PURE__*/function () {
             var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(context) {
-              var body;
+              var body, token;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
@@ -21311,20 +21311,21 @@ function _changeHeader() {
                     return insertHtmlContentControl(body);
                   case 6:
                     _context.next = 8;
-                    return showUserInfo(body);
-                  case 8:
-                    _context.next = 10;
                     return (0,_get_access_token__WEBPACK_IMPORTED_MODULE_0__.loginSilentAndGetAccessToken)(body);
-                  case 10:
-                    _context.next = 12;
+                  case 8:
+                    token = _context.sent;
+                    _context.next = 11;
+                    return showUserInfo(body, token);
+                  case 11:
+                    _context.next = 13;
                     return context.sync();
-                  case 12:
+                  case 13:
                   case "end":
                     return _context.stop();
                 }
               }, _callee);
             }));
-            return function (_x5) {
+            return function (_x6) {
               return _ref.apply(this, arguments);
             };
           }());
@@ -21393,7 +21394,7 @@ function _insertHtmlContentControl() {
           cc.tag = "testHtmlCc";
           cc.title = "Test HTML Content Control";
           cc.appearance = Word.ContentControlAppearance.boundingBox;
-          cc.insertHtml("<h3 style='color: red'>Hello doan 2</h3>", Word.InsertLocation.replace);
+          cc.insertHtml("<h3 style='color: red'>Some html inside content control</h3>", Word.InsertLocation.replace);
         case 6:
         case "end":
           return _context4.stop();
@@ -21402,11 +21403,11 @@ function _insertHtmlContentControl() {
   }));
   return _insertHtmlContentControl.apply(this, arguments);
 }
-function showUserInfo(_x4) {
+function showUserInfo(_x4, _x5) {
   return _showUserInfo.apply(this, arguments);
 }
 function _showUserInfo() {
-  _showUserInfo = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(body) {
+  _showUserInfo = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(body, token) {
     var response, profile, msg;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
@@ -21422,7 +21423,7 @@ function _showUserInfo() {
           _context5.next = 6;
           return fetch("https://graph.microsoft.com/v1.0/me", {
             headers: {
-              Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6ImF5azMtZDFQZHBlRkFVS0lvYnZBQ1ZESFB4YTFqNGFEcUtYNnh5bUVCM0UiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9mM2Q2Zjc1Zi02YjQwLTQ1MmYtYWU5YS02MjI2M2YyNmM2MzkvIiwiaWF0IjoxNzUwNzc4MzIxLCJuYmYiOjE3NTA3NzgzMjEsImV4cCI6MTc1MDc4MzMyNSwiYWNjdCI6MCwiYWNyIjoiMSIsImFjcnMiOlsicDEiXSwiYWlvIjoiQVdRQW0vOFpBQUFBTUM5Y09GV3BrNkFKOXRkd0lnRGZuRGl4OVJlbWFrNTZERUU3MkFnWFNTMVRJK3dNcEhOQlZCMzlvNVZmYS9KUzZiQ2lTQlplTlZzYlZEVUFDL2FUdnNQNlRod2xzS1BCUGdDY1NaeUhIZ3dFQVVwQTZ2K0wxQ1d4SHYzejF5UDEiLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcF9kaXNwbGF5bmFtZSI6Ik9mZmljZS1BZGQtaW4tU1NPLU5BQSIsImFwcGlkIjoiZTE1ZGY1NWItNzkzNC00ZThhLWIyZWYtYmRjMWRjMjIwNGI1IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJEb2FuIiwiZ2l2ZW5fbmFtZSI6IkhpZXUiLCJpZHR5cCI6InVzZXIiLCJpcGFkZHIiOiI0Mi4xMTUuMTkzLjQzIiwibmFtZSI6IkhpZXUgRG9hbiIsIm9pZCI6IjIyNDdiMjliLTI1YzgtNDFkMy1hMWJjLWYzMDhmOTVkYmUwMCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMTVGNkQzNzBGIiwicHdkX3VybCI6Imh0dHBzOi8vcG9ydGFsLm1pY3Jvc29mdG9ubGluZS5jb20vQ2hhbmdlUGFzc3dvcmQuYXNweCIsInJoIjoiMS5BWEVBWF9mVzgwQnJMMFd1bW1JbVB5YkdPUU1BQUFBQUFBQUF3QUFBQUFBQUFBQnhBRWR4QUEuIiwic2NwIjoiRmlsZXMuUmVhZCBvcGVuaWQgcHJvZmlsZSBVc2VyLlJlYWQgZW1haWwiLCJzaWQiOiIwMDVmMTdkOS0zNTY3LWZhYzEtYmZmOS01ZDgwMjFkNGY4MGMiLCJzdWIiOiJJeHNBb09rWEJTVlpMY1NGamo5YkVkcnp5UTdXekd1dnVZVXM4QzNKRWVRIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkFTIiwidGlkIjoiZjNkNmY3NWYtNmI0MC00NTJmLWFlOWEtNjIyNjNmMjZjNjM5IiwidW5pcXVlX25hbWUiOiJqYXNvbi5oaWV1QGhpZXVkb2FuZGV2Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6Imphc29uLmhpZXVAaGlldWRvYW5kZXYub25taWNyb3NvZnQuY29tIiwidXRpIjoiY1lNa1NXbmhURTJQOUFmSkhpT0FBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIiwiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19mdGQiOiJSZUd5WVplTnBFVE9oSDZhV0VMTjBHNHktT28tbVZ0c2dCMW42enVpbDA4QmEyOXlaV0Z6YjNWMGFDMWtjMjF6IiwieG1zX2lkcmVsIjoiMSAzMCIsInhtc19zdCI6eyJzdWIiOiJIdGxZM2x1aktYLWI1TEVlZDdFT192dE9mMG1lRmZjWWJYM2kzSnlKT2lrIn0sInhtc190Y2R0IjoxNjI2NDIzMjQ0fQ.QgW2mx3esxHAail2fcwbLJKr1bfY5HKv_RUyoREIRUDCUjrVcuEAxl64qhGjfpBdAHVPSnByzTixTWK4LbJqkJGeE32OXmb6FNMlu9NyxwMlEJSj3iwdyREpicqirad_rTTXSHvdKWd7GaKzvsaFRUttCuTWPiE7d3ERe5RE8Uaft_4nrPU0qRKcMXVWTj1mcHysEMA15et1-yOGGi-seR29slyGZsv9yH_QtgWPJfXuts2gqpc91HxeA4D0jOAFw1Az_eaY6UBEZvm3bOAN9H9TuOftWbm_YXIJSKucN4LpWWmLjo7sQdV-x4sxdf41E47YEh_wonSG35xI5PCVUw",
+              Authorization: "Bearer ".concat(token),
               Accept: "application/json"
             }
           });
